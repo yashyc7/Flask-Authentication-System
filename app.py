@@ -103,11 +103,11 @@ def login():
                             distance = cv2.norm(input_encoding, db_encoding, cv2.NORM_L2)
                             print(f"Face distance: {distance}")  # Debugging
 
-                            if distance < 40:  # Adjust this threshold if needed
+                            if distance < 40:  
                                 login_user(user)
                                 return redirect(url_for("dashboard"))
 
-            flash("Face not recognized", "danger")
+            flash("Face not found in database", "danger")
     return render_template("login.html")
 
 
@@ -119,7 +119,7 @@ def register():
         file = request.files["face_image"]
         image_path = os.path.join("temp", file.filename)
         file.save(image_path)
-
+  
         face_encoding = extract_face_encoding(image_path)
         os.remove(image_path)
 
